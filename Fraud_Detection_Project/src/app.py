@@ -10,6 +10,7 @@ import pandas as pd
 
 from fastapi import FastAPI
 from pydantic import create_model, ConfigDict
+from fastapi import HTTPException
 
 
 # ----------------------------------------------------------
@@ -98,31 +99,37 @@ def health_check():
 @app.post("/predict")
 def predict(transaction: TransactionInput):
 
-    # Convert validated input into a DataFrame
-    transaction_data = transaction.model_dump()
+    try:
+        transaction_data = transaction.model_dump()
 
-    input_df = pd.DataFrame(
-        [transaction_data],
-        columns=features
-    )
+        input_df = pd.DataFrame(
+            [transaction_data],
+            columns=features
+        )
 
-    # Get fraud probability
-    probability = float(
-        pipeline.predict_proba(input_df)[0, 1]
-    )
+        probability = float(
+            pipeline.predict_proba(input_df)[0, 1]
+        )
 
-    # Apply saved decision threshold
-    prediction = (
-        probability >= threshold
-    )
+        prediction = probability >= threshold
 
-    result = (
-        "Fraud" if prediction else "Legitimate"
-    )
+        result = (
+            "Fraud" if prediction else "Legitimate"
+        )
 
-    # Return JSON response
-    return {
-        "fraud_probability": round(probability, 6),
-        "threshold": threshold,
-        "prediction": result
-    }
+        return {
+            "fraud_probability": round(probability, 6),
+            "threshold": threshold,
+            "prediction": result
+        }
+
+    except Exception:
+        # Log the real error in the server terminal
+        import logging
+        logging.exception("Prediction failed")
+
+        # Return a safe message to the API client
+        raise HTTPException(
+            status_code=500,
+            detail="Prediction failed due to an internal server error."
+        )

@@ -7,3 +7,5 @@ joblib
 fastapi
 uvicorn[standard]
 pydantic
+pytest
+httpx
