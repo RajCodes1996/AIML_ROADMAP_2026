@@ -1,0 +1,39 @@
+MACHINE LEARNING
+
+Machine learning is a branch of artificial intelligence.
+It enables computers to learn patterns from data.
+Common machine learning algorithms include linear regression,
+decision trees, random forests, and logistic regression.
+
+DEEP LEARNING
+
+Deep learning is a subset of machine learning.
+It uses artificial neural networks with multiple layers.
+PyTorch and TensorFlow are popular deep learning frameworks.
+
+NATURAL LANGUAGE PROCESSING
+
+Natural Language Processing enables computers to process
+and understand human language.
+Common applications include sentiment analysis,
+text classification, translation, and chatbots.
+
+RETRIEVAL AUGMENTED GENERATION
+
+RAG stands for Retrieval-Augmented Generation.
+It combines information retrieval with language generation.
+A RAG application retrieves relevant information from
+external documents and provides it as context to a language model.
+
+EMBEDDINGS
+
+Embeddings represent text, images, or other information
+as numerical vectors.
+Similar meanings are generally represented by vectors
+that are close together in the embedding space.
+
+VECTOR DATABASES
+
+Vector databases store and retrieve vector embeddings.
+They are useful for semantic search and AI applications.
+ChromaDB is an example of a vector database.
